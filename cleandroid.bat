@@ -4,6 +4,7 @@
 @rem
 @rem  ##########################################################################
 echo off
+IF "%1"=="/?" GOTO HELP
 IF "%~1"=="" (GOTO BEGIN) ELSE (set dirname=%1)
 GOTO EXPORT
 :BEGIN
@@ -53,5 +54,16 @@ IF ERRORLEVEL 2 GOTO OPENDIR
 IF ERRORLEVEL 1 GOTO BEGIN
 :OPENDIR
 start %exdir%
-:OUT
+GOTO OUT
+:HELP
+echo Copies and cleans an Android Studio Project
 echo.
+echo CLEANDROID [path] [/K:name1[+name2][+name3]...] [/D] [/E folder]
+echo.
+echo  path			The path to the project. If no path is specified, you'll be asked on launch.
+echo  /K:git, /keepgit	Does not delete the project's git repository (.git folder)
+echo  /K:idea, /keepidea	Does not delete the IntelliJ project files (.idea folder)
+echo  /D, /debug		Verbose output + script pauzes before every operation
+echo  /E folder		Export to specified folder (default: C:\EXPORT)
+echo.
+:OUT
